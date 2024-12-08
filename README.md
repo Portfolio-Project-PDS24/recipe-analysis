@@ -94,3 +94,65 @@ We also took a look at the distributions of average ratings, and it appears that
 ></iframe>
 
 #### Bivariate Data Analysis
+We took a look at if there's any relation between the average user rating and prep time in a recipe, and found no great correlation. On the other hand, taking a look at the average protein to carb ration for many of the common tags did show some interesting results.
+
+<iframe
+  src="bivariate_analysis_protein_carb_to_tags.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+You can see (not surprisingly) that the recipes with the highest average protein to carb ratio are `low-carb` and `meat` recipes. Surprisingly, recipes labelled as `healthy` have some of the lowest protein to carb ratios in the top 25 most common tags.
+
+#### Interesting Aggregates
+
+Another way of visuallizing the data above in a less condensed way is with a grouped table:
+
+|   calories |   total_fat |    sugar |   sodium |   protein |   saturated_fat |   carbohydrates |
+|-----------:|------------:|---------:|---------:|----------:|----------------:|----------------:|
+|    313.673 |     24.2679 |  67.9461 | 26.5028  |   17.3269 |         28.1758 |        10.3824  |
+|    358.428 |     26.5037 |  63.8623 | 28.428   |   25.8313 |         31.0342 |        11.7752  |
+|    375.627 |     28.58   |  48.9627 | 23.481   |   31.692  |         34.2357 |        11.6247  |
+|    565.994 |     42.9425 |  93.5872 | 36.4806  |   42.7273 |         54.3618 |        18.6147  |
+|    445.946 |     33.7911 |  66.5634 | 26.9887  |   34.7885 |         42.8807 |        14.4488  |
+|    428.778 |     32.4828 |  69.662  | 28.4942  |   32.3909 |         40.2891 |        13.8916  |
+|    440.97  |     34.444  |  58.331  | 32.0511  |   36.1374 |         40.9731 |        13.2512  |
+|    512.356 |     38.5901 | 175.292  | 12.9782  |   13.7135 |         59.1052 |        21.8914  |
+|    408.545 |     29.9295 |  68.2619 | 27.4942  |   31.3608 |         36.4003 |        13.7477  |
+|    384.713 |     28.7112 |  65.5739 | 28.3566  |   29.0385 |         34.9496 |        12.5277  |
+|    355.049 |     11.392  |  90.698  | 30.3171  |   26.5765 |         11.9766 |        18.8234  |
+|    380.615 |     36.2018 |  24.1802 | 31.8497  |   45.4427 |         42.2459 |         5.39205 |
+|    316.321 |     12.8514 |  77.5287 | 31.9126  |   20.4518 |         10.3713 |        16.1364  |
+|    411.148 |     30.1459 |  71.6231 | 28.6162  |   33.4537 |         36.1988 |        13.3935  |
+|    401.297 |     27.2916 |  94.8222 |  7.27786 |   27.0554 |         34.1021 |        15.032   |
+|    504.188 |     39.7138 |  30.9946 | 37.4495  |   59.9219 |         46.7332 |        11.6843  |
+|    426.742 |     33.0329 |  55.3966 | 28.242   |   38.0331 |         40.2653 |        12.5426  |
+|    522.895 |     43.9799 |  33.01   | 40.5964  |   65.34   |         50.5548 |        10.0593  |
+|    448.028 |     35.125  |  68.4093 | 32.6948  |   35.681  |         43.8655 |        13.6219  |
+|    361.98  |     26.777  |  65.2238 | 24.0574  |   25.2343 |         32.7225 |        11.8512  |
+|    436.785 |     33.6179 |  72.2855 | 27.8589  |   32.568  |         42.0059 |        13.9585  |
+|    428.758 |     32.5336 |  68.5713 | 28.7823  |   32.9424 |         40.1143 |        13.77    |
+|    453.661 |     35.1819 |  67.2312 | 28.5374  |   35.8446 |         44.8645 |        14.103   |
+|    427.361 |     32.4837 |  69.0974 | 28.3956  |   32.0823 |         40.0908 |        13.8383  |
+|    336.174 |     25.9753 |  34.8879 | 25.699   |   26.1295 |         29.4537 |        10.7623  |
+
+Here, we have left the data in its raw form (ie. not in ratios).
+
+#### Imputation
+
+We have imputed the data to *remove* missing data. We did this because ultimately the imputed dataset is still large enough to be representative of the raw dataset, and ultimatlely it doesn't affect the appearance or shape of the data. See below:
+
+`recipes_non_imputed.shape`
+(1364760, 8)
+`recipes_imputed = recipes_imputed.dropna()`
+`recipes_imputed.shape`
+(1364760, 8)
+
+When examining only nutritional values, the imputed dataset has the same shape as the non-imputed dataset. So in this case, dropping NA values is sufficient (or not doing imputation at all).
+
+### Framing a Prediction Problem
+
+Our question is as such: when given a vector of nutritional values, the number of minutes needed to finish the recipe, and the average rating, what would be the predicted number of calories?
+
+This question is a regression problem, since the `calories` column is numerical.
