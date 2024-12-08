@@ -599,10 +599,10 @@ Let's take a look at the top outliers:
 <td style="text-align:right"></td>
 <td style="text-align:right"></td>
 <td style="text-align:right"></td>
-</tr>
-</tbody>
-</table>
-</detail>
+  </tr>
+  </tbody>
+  </table>
+</details>
 
 It appears that these are mostly pickling/marinating/fermenting recipes, which take a long time. Thankfully, the `tags` column contains a tag that labels recipes that take `1-day-or-more`-- We can filter those out.
 
