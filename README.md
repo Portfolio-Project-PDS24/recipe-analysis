@@ -35,7 +35,14 @@ Still, there was some work to do in individual columns. We took our nutrition da
 
 #### Univariate Data Analysis
 We took an inital look at preparation time.
-![plotly.js box plot of prep time](univariate_analysis_prep_time.html)
+
+<iframe
+  src="univariate_analysis_prep_time.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 You can see that the boxplot has some significant outliers-- There is one recipe that takes 1.05 _million_ minutes! We will need to remove these outliers to do most of the data analysis.
 
 Let's take a look at the top outliers:
@@ -60,10 +67,20 @@ Let's take a look at the top outliers:
 
 It appears that these are mostly pickling/marinating/fermenting recipes, which take a long time. Thankfully, the `tags` column contains a tag that labels recipes that take `1-day-or-more`-- We can filter those out.
 
-![plotly.js box plot of prep time, excluding recipes longer than a day](univariate_analysis_prep_time_cleaned.html)
+<iframe
+  src="univariate_analysis_prep_time_cleaned.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 We also took a look at the distributions of average ratings, and it appears that the vast majority of average ratings are positive. Even when increasing the histogram bin size (and increasing granularity), the rightmost bin consistently has the highest number of recipes.
 
-![plotly.js historgram of average ratings with adjustable slider](univariate_analysis_rating_dist.html)
+<iframe
+  src="univariate_analysis_rating_dist.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 #### Bivariate Data Analysis
