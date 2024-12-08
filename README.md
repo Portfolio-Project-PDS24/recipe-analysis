@@ -26,7 +26,7 @@ We then took our third dataset, containing individual review data, and found the
 Still, there was some work to do in individual columns. We took our nutrition data (mentioned in the first section), which was initally stored as a string of numbers, and turned it into a list, and then gave each value its own separate column. After adding this data to our main dataframe, we dropped the inital nutrition column and started looking at the data through some various styles of analyses.
 
 <details>
-  <summary>Click To Open Table</summary>
+  <summary style="color:blue;font-weight:bold;">Click To Open Table</summary>
 <table>
 <thead>
 <tr>
@@ -195,7 +195,7 @@ You can see that the boxplot has some significant outliers-- There is one recipe
 Let's take a look at the top outliers:
 
 <details>
-  <summary>Click To Open Table</summary>
+  <summary style="color:blue;font-weight:bold;">Click To Open Table</summary>
   <table>
 <thead>
 <tr>
@@ -688,4 +688,35 @@ When examining only nutritional values, the imputed dataset has the same shape a
 
 Our question is as such: when given a vector of nutritional values, the number of minutes needed to finish the recipe, and the average rating, what would be the predicted number of calories?
 
-This question is a regression problem, since the `calories` column is numerical. We decided to classify this variable because it is easliy interpretable for someone looking to make something with certain caloric needs.
+This question is a regression problem, since the `calories` column is numerical. We decided to classify this variable because it is easliy interpretable for someone looking to make something with certain caloric needs. Our metric for success will be mean squared error, as it is the easiest to calculate (although in ridge regression this is not what is minimized). However, this approximation should be enough to estimate the success of the model.
+
+### Baseline Model
+The model used is a ridge regression, with a pipline that includes a `StandardScaler` to standardize all the features and a ridge regression with L2 regularization. We have several features in the model, listed here:
+- total_fat
+- sugar
+- sodium
+- protein
+- saturated_fat
+- carbohydrates
+- minutes
+- avg_rating
+All of these are ordinal.
+
+As said above, all that was used to encode all values was `sklearn`'s `StandardScaler`
+
+In terms of performance, we can look at some metrics, including mean squared error, and the R² score. These tests are all easily done using `sklearn` once again.
+
+```python
+from sklearn.metrics import mean_squared_error, r2_score
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"MSE: {mse}")
+print(f"R² Score: {r2}")
+```
+MSE: 2324.047870089264 <br>
+R² Score: 0.9928809462294772
+
+Based on this, while there's a quite good R² score, the mean squared error runs quite high, so I would not call this model "good", per se.
+
+### Final Model
