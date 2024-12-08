@@ -1,4 +1,4 @@
-markdown: kramdown
+markdown: CommonMarkGhPageskramdown
 kramdown:
   parse_block_html: true
 remote_theme: pages-themes/hacker@v0.2.0
