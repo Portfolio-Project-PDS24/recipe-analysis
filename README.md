@@ -194,7 +194,7 @@ You can see that the boxplot has some significant outliers-- There is one recipe
 
 Let's take a look at the top outliers:
 
-<detail>
+<details>
   <summary>Click To Open Table</summary>
   <table>
 <thead>
@@ -673,9 +673,13 @@ Here, we have left the data in its raw form (ie. not in ratios).
 We have imputed the data to *remove* missing data. We did this because ultimately the imputed dataset is still large enough to be representative of the raw dataset, and ultimatlely it doesn't affect the appearance or shape of the data. See below:
 
 `recipes_non_imputed.shape`
+
 (1364760, 8)
+
 `recipes_imputed = recipes_imputed.dropna()`
+
 `recipes_imputed.shape`
+
 (1364760, 8)
 
 When examining only nutritional values, the imputed dataset has the same shape as the non-imputed dataset. So in this case, dropping NA values is sufficient (or not doing imputation at all).
