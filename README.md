@@ -1,5 +1,5 @@
 # Recipe Analysis
-## By Téa Hajratwala ([hajtwt@umich.edu](mailto:hajtwt@umich.edu)) and Devdeep Rajpal ([devdeep@umich.edu](mailto:devdeep@umich.edu))
+## By Téa Hajratwala ([hajtwt@umich.edu](mailto:hajratwt@umich.edu)) and Devdeep Rajpal ([devdeep@umich.edu](mailto:devdeep@umich.edu))
 
 
 ### Introduction
