@@ -187,13 +187,10 @@ Still, there was some work to do in individual columns. We took our nutrition da
 
 #### Univariate Data Analysis
 We took an inital look at preparation time.
-
 <iframe src="univariate_analysis_prep_time.html" width="800" height="600" frameborder="0"></iframe>
-
 You can see that the boxplot has some significant outliers-- There is one recipe that takes 1.05 _million_ minutes! We will need to remove these outliers to do most of the data analysis.
 
 Let's take a look at the top outliers:
-
 <details>
   <summary style="color:blue;font-weight:bold;">Click To Open Table</summary>
   <table>
@@ -605,33 +602,27 @@ Let's take a look at the top outliers:
 </details>
 
 It appears that these are mostly pickling/marinating/fermenting recipes, which take a long time. Thankfully, the `tags` column contains a tag that labels recipes that take `1-day-or-more`-- We can filter those out.
-
 <iframe
   src="univariate_analysis_prep_time_cleaned.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
 We also took a look at the distributions of average ratings, and it appears that the vast majority of average ratings are positive. Even when increasing the histogram bin size (and increasing granularity), the rightmost bin consistently has the highest number of recipes.
-
 <iframe
   src="univariate_analysis_rating_dist.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
 #### Bivariate Data Analysis
 We took a look at if there's any relation between the average user rating and prep time in a recipe, and found no great correlation. On the other hand, taking a look at the average protein to carb ration for many of the common tags did show some interesting results.
-
 <iframe
   src="bivariate_analysis_protein_carb_to_tags.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
 You can see (not surprisingly) that the recipes with the highest average protein to carb ratio are `low-carb` and `meat` recipes. Surprisingly, recipes labelled as `healthy` have some of the lowest protein to carb ratios in the top 25 most common tags.
 
 #### Interesting Aggregates
