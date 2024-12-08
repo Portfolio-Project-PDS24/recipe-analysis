@@ -712,3 +712,8 @@ R² Score: 0.9928809462294772
 Based on this, while there's a quite good R² score, the mean squared error runs quite high, so I would not call this model "good", per se.
 
 ### Final Model
+We have a few ideas for improvement of the model:
+
+1. Square the carbohydrates and sugar columns. These columns should have more of an impact on calories, so adding two separate column where their data is squared gives them more weight.
+2. **Use `sklearn`'s `PolynomialFeatures()` on all columns which are under `nutrition`**. This should allow us to fit a curve to the data rather than the default ridge regression relationship. We used the `interactions_only` tag to capture relationships between columns such as `saturated_fat` and `carbohydrates`.
+    - the columns where this was applied were`total_fat`, `sugar`, `sodium`, `protein`, `saturated_fat`, `carbohydrates`.
