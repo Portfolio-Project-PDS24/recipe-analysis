@@ -41,12 +41,9 @@ Still, there was some work to do in individual columns. We took our nutrition da
 #### Univariate Data Analysis
 We took an inital look at preparation time.
 
-<iframe
-  src="univariate_analysis_prep_time.html"
-  width="800"
-  height="600"
-  frameborder="0"
-></iframe>
+
+<iframe src="assets/univariate_analysis_prep_time.html" width="800" height="600" frameborder="0"></iframe>
+
 
 You can see that the boxplot has some significant outliers-- There is one recipe that takes 1.05 _million_ minutes! We will need to remove these outliers to do most of the data analysis.
 
