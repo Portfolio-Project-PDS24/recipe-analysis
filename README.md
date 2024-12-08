@@ -26,7 +26,7 @@ We then took our third dataset, containing individual review data, and found the
 Still, there was some work to do in individual columns. We took our nutrition data (mentioned in the first section), which was initally stored as a string of numbers, and turned it into a list, and then gave each value its own separate column. After adding this data to our main dataframe, we dropped the inital nutrition column and started looking at the data through some various styles of analyses.
 
 <details>
-  <summary>Click To Open Table</summary>
+  <summary style="color:blue;font-weight:bold;">Click To Open Table</summary>
 <table>
 <thead>
 <tr>
@@ -187,15 +187,12 @@ Still, there was some work to do in individual columns. We took our nutrition da
 
 #### Univariate Data Analysis
 We took an inital look at preparation time.
-
 <iframe src="univariate_analysis_prep_time.html" width="800" height="600" frameborder="0"></iframe>
-
 You can see that the boxplot has some significant outliers-- There is one recipe that takes 1.05 _million_ minutes! We will need to remove these outliers to do most of the data analysis.
 
 Let's take a look at the top outliers:
-
 <details>
-  <summary>Click To Open Table</summary>
+  <summary style="color:blue;font-weight:bold;">Click To Open Table</summary>
   <table>
 <thead>
 <tr>
@@ -605,33 +602,27 @@ Let's take a look at the top outliers:
 </details>
 
 It appears that these are mostly pickling/marinating/fermenting recipes, which take a long time. Thankfully, the `tags` column contains a tag that labels recipes that take `1-day-or-more`-- We can filter those out.
-
 <iframe
   src="univariate_analysis_prep_time_cleaned.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
 We also took a look at the distributions of average ratings, and it appears that the vast majority of average ratings are positive. Even when increasing the histogram bin size (and increasing granularity), the rightmost bin consistently has the highest number of recipes.
-
 <iframe
   src="univariate_analysis_rating_dist.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
 #### Bivariate Data Analysis
 We took a look at if there's any relation between the average user rating and prep time in a recipe, and found no great correlation. On the other hand, taking a look at the average protein to carb ration for many of the common tags did show some interesting results.
-
 <iframe
   src="bivariate_analysis_protein_carb_to_tags.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-
 You can see (not surprisingly) that the recipes with the highest average protein to carb ratio are `low-carb` and `meat` recipes. Surprisingly, recipes labelled as `healthy` have some of the lowest protein to carb ratios in the top 25 most common tags.
 
 #### Interesting Aggregates
@@ -688,4 +679,36 @@ When examining only nutritional values, the imputed dataset has the same shape a
 
 Our question is as such: when given a vector of nutritional values, the number of minutes needed to finish the recipe, and the average rating, what would be the predicted number of calories?
 
-This question is a regression problem, since the `calories` column is numerical. We decided to classify this variable because it is easliy interpretable for someone looking to make something with certain caloric needs.
+This question is a regression problem, since the `calories` column is numerical. We decided to classify this variable because it is easliy interpretable for someone looking to make something with certain caloric needs. Our metric for success will be mean squared error, as it is the easiest to calculate (although in ridge regression this is not what is minimized). However, this approximation should be enough to estimate the success of the model.
+
+### Baseline Model
+The model used is a ridge regression, with a pipline that includes a `StandardScaler` to standardize all the features and a ridge regression with L2 regularization. We have several features in the model, listed here:
+- total_fat
+- sugar
+- sodium
+- protein
+- saturated_fat
+- carbohydrates
+- minutes
+- avg_rating
+
+All of these are ordinal.
+
+As said above, all that was used to encode all values was `sklearn`'s `StandardScaler`
+
+In terms of performance, we can look at some metrics, including mean squared error, and the R² score. These tests are all easily done using `sklearn` once again.
+
+```python
+from sklearn.metrics import mean_squared_error, r2_score
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"MSE: {mse}")
+print(f"R² Score: {r2}")
+```
+MSE: 2324.047870089264 <br>
+R² Score: 0.9928809462294772
+
+Based on this, while there's a quite good R² score, the mean squared error runs quite high, so I would not call this model "good", per se.
+
+### Final Model
