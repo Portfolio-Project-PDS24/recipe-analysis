@@ -688,4 +688,4 @@ When examining only nutritional values, the imputed dataset has the same shape a
 
 Our question is as such: when given a vector of nutritional values, the number of minutes needed to finish the recipe, and the average rating, what would be the predicted number of calories?
 
-This question is a regression problem, since the `calories` column is numerical.
+This question is a regression problem, since the `calories` column is numerical. We decided to classify this variable because it is easliy interpretable for someone looking to make something with certain caloric needs.
