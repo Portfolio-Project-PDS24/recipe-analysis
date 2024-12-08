@@ -1,4 +1,4 @@
-# Recipe Analysis
+# Cooking Up Calories: Predicting Recipe Nutrition with Data Science
 ## By Téa Hajratwala ([hajratwt@umich.edu](mailto:hajratwt@umich.edu)) and Devdeep Rajpal ([devdeep@umich.edu](mailto:devdeep@umich.edu))
 
 
