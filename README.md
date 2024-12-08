@@ -700,6 +700,7 @@ The model used is a ridge regression, with a pipline that includes a `StandardSc
 - carbohydrates
 - minutes
 - avg_rating
+
 All of these are ordinal.
 
 As said above, all that was used to encode all values was `sklearn`'s `StandardScaler`
