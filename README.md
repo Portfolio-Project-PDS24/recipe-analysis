@@ -717,3 +717,7 @@ We have a few ideas for improvement of the model:
 1. Square the carbohydrates and sugar columns. These columns should have more of an impact on calories, so adding two separate column where their data is squared gives them more weight.
 2. **Use `sklearn`'s `PolynomialFeatures()` on all columns which are under `nutrition`**. This should allow us to fit a curve to the data rather than the default ridge regression relationship. We used the `interactions_only` tag to capture relationships between columns such as `saturated_fat` and `carbohydrates`.
     - the columns where this was applied were`total_fat`, `sugar`, `sodium`, `protein`, `saturated_fat`, `carbohydrates`.
+
+We chose the Ridge Regression algorithm, combined with manually squaring the carbohydrates column and using `PolynomialFeatures()` on all columns. We used `GridSearchCV()` to find the optimal polynomial degree for `PolynomialFeatures()`, which was 1, and ridge alpha for `Ridge()`, which was 31.622776601683793.
+
+Based on our critera of success, which was mean squared error, our MSE decreased by about 3 when compared to the baseline. A decrease in mean squared error implies that our new model is making more accurate guesses.
